@@ -3,17 +3,34 @@
 // write your code here
 
 const theadRow = document.querySelector('thead tr');
-const ths = theadRow.querySelectorAll('th');
+const ths = theadRow?.querySelectorAll('th');
 
-const copiedTh = ths[1].cloneNode(true);
+if (ths?.length >= 2 && !theadRow.classList.contains('cloned-column-added')) {
+  const copiedTh = ths[1].cloneNode(true);
 
-theadRow.insertBefore(copiedTh, ths[ths.length - 1]);
+  theadRow.insertBefore(copiedTh, ths[ths.length - 1]);
+  theadRow.classList.add('cloned-column-added');
 
-const rows = document.querySelectorAll('tbody tr');
+  const rows = document.querySelectorAll('tbody tr');
 
-rows.forEach((row) => {
-  const tds = row.querySelectorAll('td');
-  const copiedTd = tds[1].cloneNode(true);
+  rows.forEach((row) => {
+    const tds = row.querySelectorAll('td');
 
-  row.insertBefore(copiedTd, tds[tds.length - 1]);
-});
+    if (tds.length >= 2 && !row.classList.contains('cloned-column-added')) {
+      const copiedTd = tds[1].cloneNode(true);
+
+      row.insertBefore(copiedTd, tds[tds.length - 1]);
+      row.classList.add('cloned-column-added');
+    }
+  });
+}
+
+const tfootRow = document.querySelector('tfoot tr');
+const tfs = tfootRow?.querySelectorAll('th');
+
+if (tfs?.length >= 2 && !tfootRow.classList.contains('cloned-column-added')) {
+  const copiedTf = tfs[1].cloneNode(true);
+
+  tfootRow.insertBefore(copiedTf, tfs[tfs.length - 1]);
+  tfootRow.classList.add('cloned-column-added');
+}
